@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import {Button, DataTable, TableHeader, Cell, Grid} from 'react-mdl';
 import Textfield from 'react-mdl/lib/Textfield';
+import { HashLoader } from 'react-spinners';
+
+var Spinner = require('react-spinkit');
 
 class App extends Component {
     
@@ -10,7 +13,8 @@ class App extends Component {
         this.state = {
             legitScore: 0,
             scamScore: 0,
-            textFieldValue: ''
+            textFieldValue: '',
+            loading: false
         }
       
         this.onPress = this.onPress.bind(this);
@@ -23,10 +27,24 @@ class App extends Component {
    }
     
   onPress() {
-      console.log(this.state.textFieldValue);
+      var dict = {};
+      var arr = this.state.textFieldValue.split(/[ \t]+/);
+      for (var i = 0, len = arr.length; i < len; i++) {
+        //current word in array
+        var word = arr[i];
+        //check if key is already in dict
+        if (dict[word] != undefined) {
+            dict[word] = dict[word] + 1
+        } else {
+            //key is not in dict, give it a word count of 1
+            dict[word] = 1;
+        }
+      }
+      console.log(dict);
       this.setState({
             legitScore: 55,
-            scamScore: 55
+            scamScore: 55,
+            loading: true
         })
   }
     
@@ -47,6 +65,14 @@ class App extends Component {
                 <Button raised accent ripple onClick={this.onPress}>
                     Analyze
                 </Button>
+            </Cell>
+            <Cell col={12}>
+            <div style={{width: '50px', margin: 'auto'}}>
+            <HashLoader
+              color={'#CD4770'} 
+              loading={this.state.loading} 
+            />
+            </div>
             </Cell>
             <Cell col={12}>
                 <DataTable style={{width: '80%', margin: 'auto'}}
