@@ -24,7 +24,7 @@ class App extends Component {
   render() {
     return (
         <div className="App">
-            <Grid shadow={0}>
+            <Grid>
             <Cell col={12}>
                 <Button raised accent ripple onClick={this.onPress}>
                     Analyze
@@ -43,6 +43,10 @@ class App extends Component {
                 </DataTable>
             </Cell>
             </Grid>
+            <Cell col={12}>
+                <a href="https://www.buymeacoffee.com/hi" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style={{height: 'auto', width: 'auto'}}>
+                </img></a>
+            </Cell>
         </div>
     );
   }
