@@ -56,20 +56,49 @@ class App extends Component {
         }
       }
 
-      console.log(dict);
-
       //open legit.json into dictionary
       var legitDict = require('./legit.json');
 
-      //variable for total euclidean distance
+      //variable for total score
       var legit_score = 0;
 
       //iterate over each coin in dataset
       for (var coin in legitDict) {
+          //sum totals for cosine similarity
+          var abSum1 = 0
+          var aSum1 = 0
+          var bSum1 = 0
           for (var word1 in dict) {
-
+            if (word1 in legitDict[coin]) {
+              //intersection of word-to-analyze and word-in-dataset
+              abSum1 = abSum1 + (dict[word1] * legitDict[coin][word1])
+              aSum1 = aSum1 + dict[word1]
+              bSum1 = bSum1 + legitDict[coin][word1]
+            }
           }
+          legit_score = legit_score + ((abSum1) / (aSum1 * bSum1))
       }
+
+      //we want average of all cosine similarities
+      legit_score = legit_score / (Object.keys(legitDict).length)
+
+      var legit_score_euc = 0
+      for (coin in legitDict) {
+        //current euclidean distance
+        var euc_distance = 0
+        for (word in dict) {
+          if (word in legitDict[coin]) {
+            //add squared difference of normalized frequences to euc distance
+            euc_distance = euc_distance + (Math.pow((dict[word] - legitDict[coin][word]),2))
+          }
+        }
+
+        //square euclidean distance
+        euc_distance = Math.sqrt(euc_distance)
+        legit_score_euc = legit_score_euc + euc_distance
+      }
+
+      legit_score = legit_score / (legit_score_euc / Object.keys(legitDict).length)
 
       //open scam.json into dictionary
       var scamDict = require('./scam.json');
@@ -79,8 +108,41 @@ class App extends Component {
 
       //iterate over each coin in dataset
       for (coin in scamDict) {
-
+        //sum totals for cosine similarity
+        var abSum2 = 0
+        var aSum2 = 0
+        var bSum2 = 0
+        for (var word2 in dict) {
+          if (word2 in scamDict[coin]) {
+            //intersection of word-to-analyze and word-in-dataset
+            abSum2 = abSum2 + (dict[word2] * scamDict[coin][word2])
+            aSum2 = aSum2 + dict[word2]
+            bSum2 = bSum2 + scamDict[coin][word2]
+          }
+        }
+        scam_score = scam_score + ((abSum2) / (aSum2 * bSum2))
       }
+
+      //we want average of all cosine similarities
+      scam_score = scam_score / (Object.keys(scamDict).length)
+
+      var scam_score_euc = 0
+      for (coin in scamDict) {
+        //current euclidean distance
+        euc_distance = 0
+        for (word in dict) {
+          if (word in scamDict[coin]) {
+            //add squared difference of normalized frequences to euc distance
+            euc_distance = euc_distance + (Math.pow((dict[word] - scamDict[coin][word]),2))
+          }
+        }
+
+        //square euclidean distance
+        euc_distance = Math.sqrt(euc_distance)
+        scam_score_euc = scam_score_euc + euc_distance
+      }
+
+      scam_score = scam_score / (scam_score_euc / Object.keys(scamDict).length)
 
 
       this.setState({
