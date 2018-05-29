@@ -16,7 +16,7 @@ LTC: LMxDyPFyo7tAFag2ps2esXP9pyeS4S4Az2
 ## To-do  
 - [x] Create Boilerplate chrome extension code (javascript)    
 - [x] Create datasets in JSON format (words as key, word counts as values)  
-- [ ] Create UI (React maybe) with a button to analyze text, and two cards that show similarity score to scam, and similarity score to legit  
+- [x] Create UI (React maybe) with a button to analyze text, and two cards that show similarity score to scam, and similarity score to legit  
 - [ ] Capture all text on any given website (this will be the ICO website user wants to "test")  
 - [ ] Count words in text body, store in dictionary along with word counts  
 - [ ] Calculate euclidean distance between current website, and scam/legit datasets, produce scores for each  
