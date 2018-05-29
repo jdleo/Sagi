@@ -14,7 +14,7 @@ LTC: LMxDyPFyo7tAFag2ps2esXP9pyeS4S4Az2
 
  
 ## To-do  
-- [ ] Create Boilerplate chrome extension code (javascript)    
+- [x] Create Boilerplate chrome extension code (javascript)    
 - [ ] Create datasets in JSON format (words as key, word counts as values)  
 - [ ] Create UI (React maybe) with a button to analyze text, and two cards that show similarity score to scam, and similarity score to legit  
 - [ ] Capture all text on any given website (this will be the ICO website user wants to "test")  
