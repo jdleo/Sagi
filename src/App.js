@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import {Button, DataTable, TableHeader, Cell, Grid} from 'react-mdl';
+import Textfield from 'react-mdl/lib/Textfield';
 
 class App extends Component {
     
@@ -8,13 +9,21 @@ class App extends Component {
         super(props);
         this.state = {
             legitScore: 0,
-            scamScore: 0
+            scamScore: 0,
+            textFieldValue: ''
         }
       
         this.onPress = this.onPress.bind(this);
   }
     
+  _handleTextFieldChange(e) {
+        this.setState({
+            textFieldValue: e.target.value
+        });
+   }
+    
   onPress() {
+      console.log(this.state.textFieldValue);
       this.setState({
             legitScore: 55,
             scamScore: 55
@@ -25,6 +34,15 @@ class App extends Component {
     return (
         <div className="App">
             <Grid>
+            <Cell col={12}>
+                <Textfield
+                    value={this.state.textFieldValue} 
+                    onChange={e => this.setState({ textFieldValue: e.target.value })}
+                    label="Text Body..."
+                    floatingLabel
+                    style={{width: '200px'}}
+                />
+            </Cell>
             <Cell col={12}>
                 <Button raised accent ripple onClick={this.onPress}>
                     Analyze
